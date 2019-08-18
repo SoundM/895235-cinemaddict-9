@@ -2,8 +2,12 @@ import {createTemplateSearch} from "./components/search.js";
 import {createTemplateUserProfile} from "./components/user-profile.js";
 import {createTemplateNavigation} from "./components/navigation";
 import {createTemplateSort} from "./components/sort";
-import {createTemplateFilmsBoard, createTemplateFilmsList, createTemplateFilmsExtra, createTemplateFilmsMostCommented, createTemplateFilmsTopRated} from "./components/films.js";
-import {createTemplateButtonShowMore} from "./components/buttonShowMore.js";
+import {createTemplateFilmsBoard} from "./components/films.js";
+import {createTemplateFilmsList} from "./components/films-list.js";
+import {createTemplateFilmsExtra} from "./components/films-extra.js";
+import {createTemplateFilmsMostCommented} from "./components/films-most-commented.js";
+import {createTemplateFilmsTopRated} from "./components/films-top-rated.js";
+import {createTemplateButtonShowMore} from "./components/button-show-more.js";
 import {createTemplateCardFilm} from "./components/card.js";
 import {createTemplatePopup} from "./components/popup.js";
 import {createTemplateStatistic} from "./components/statistic.js";
@@ -18,6 +22,8 @@ const filmsTopRatedTitle = `.films-list--extra:nth-child(2)`;
 const filmsMostCommentedTitle = `.films-list--extra:nth-child(3)`;
 const filmsTopRated = `.films-list--extra:nth-child(2) .films-list__container`;
 const filmsMostCommented = `.films-list--extra:nth-child(3) .films-list__container`;
+const popup = `body`;
+const mainNavigation = `.main-navigation`;
 
 
 const elements = [
@@ -110,6 +116,20 @@ const elements = [
     template: createTemplateCardFilm,
     place: `beforeEnd`,
     amount: CARD_COUNT_EXTRA
+  },
+
+  {
+    container: popup,
+    template: createTemplatePopup,
+    place: `beforeEnd`,
+    amount: 1
+  },
+
+  {
+    container: mainNavigation,
+    template: createTemplateStatistic,
+    place: `afterEnd`,
+    amount: 1
   }
 
 ];
@@ -124,12 +144,6 @@ const renderAllComponents = () => {
 };
 renderAllComponents();
 
-const renderPopup = () => {
-  document.querySelector(`body`).insertAdjacentHTML(`beforeEnd`, createTemplatePopup());
-};
-// renderPopup();
+document.querySelector(`.film-details`).classList.add(`visually-hidden`);
+document.querySelector(`.statistic`).classList.add(`visually-hidden`);
 
-const renderStatistic = () => {
-  document.querySelector(`.main`).insertAdjacentHTML(`beforeEnd`, createTemplateStatistic());
-};
-// renderStatistic();
