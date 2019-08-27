@@ -11,9 +11,16 @@ import {createTemplateButtonShowMore} from "./components/button-show-more.js";
 import {createTemplateCardFilm} from "./components/card.js";
 import {createTemplatePopup} from "./components/popup.js";
 import {createTemplateStatistic} from "./components/statistic.js";
+import {getCard} from './data/data-card.js';
 
-const CARD_COUNT = 5;
-const CARD_COUNT_EXTRA = 2;
+// const CARD_COUNT = 5;
+// const CARD_COUNT_EXTRA = 2;
+const CardsCount = {
+  CARDS_ACTIVE: 5,
+  CARD_COUNT_EXTRA: 2,
+  ADD_BY_CLICK: 8,
+  All: 23,
+};
 const header = `.header`;
 const main = `.main`;
 const filmsBoard = `.films`;
@@ -24,6 +31,8 @@ const filmsTopRated = `.films-list--extra:nth-child(2) .films-list__container`;
 const filmsMostCommented = `.films-list--extra:nth-child(3) .films-list__container`;
 const popup = `body`;
 const mainNavigation = `.main-navigation`;
+
+const tasks = new Array(CardsCount.All).fill(``).map(getCard);
 
 
 const elements = [
@@ -101,21 +110,21 @@ const elements = [
     container: filmsList,
     template: createTemplateCardFilm,
     place: `beforeEnd`,
-    amount: CARD_COUNT
+    amount: CardsCount.CARDS_ACTIVE
   },
 
   {
     container: filmsTopRated,
     template: createTemplateCardFilm,
     place: `beforeEnd`,
-    amount: CARD_COUNT_EXTRA
+    amount: CardsCount.CARD_COUNT_EXTRA
   },
 
   {
     container: filmsMostCommented,
     template: createTemplateCardFilm,
     place: `beforeEnd`,
-    amount: CARD_COUNT_EXTRA
+    amount: CardsCount.CARD_COUNT_EXTRA
   },
 
   {
@@ -138,7 +147,7 @@ const renderAllComponents = () => {
   elements.forEach((it) => {
     const currentContainer = document.querySelector(it.container);
     for (let i = 0; i < it.amount; i++) {
-      currentContainer.insertAdjacentHTML(it.place, it.template());
+      currentContainer.insertAdjacentHTML(it.place, it.template(getCard()));
     }
   });
 };
