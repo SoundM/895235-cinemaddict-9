@@ -16,19 +16,20 @@ const dataFilms = {
   description: ` Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras aliquet varius magna, non porta ligula feugiat eget. Fusce tristique felis at fermentum pharetra. Aliquam id orci ut lectus varius viverra. Nullam nunc ex, convallis sed finibus eget, sollicitudin eget ante. Phasellus eros mauris, condimentum sed nibh vitae, sodales efficitur ipsum. Sed blandit, eros vel aliquam faucibus, purus ex euismod diam, eu luctus nunc ante ut dui. Sed sed nisi sed augue convallis suscipit in sed felis. Aliquam erat volutpat. Nunc fermentum tortor ac porta dapibus. In rutrum ac purus sit amet tempus.`,
   genres: [`Horror`, `Comedy`, `Western`, `Romance`, `Cartoon`, `Action`, `Documentary`],
   directors: [`Robert Lee Zemeckis`, `Roberto Benigni`, `Philippe Rege`, `Roger Allers`, `Roman Polanski`, `Alexander Jacoby`, `Peter Jackson`],
-  writers: [`David Lynch`, `Donald Richie`, `Lawrence Hauben`, `Hannah Patterson`, `Ronald Harwood`, `Fran Walsh`, `Spencer Moon`, `Steven Soderbergh`],
-  actors: [`Adrien Brody`, `Jack Nicholson`, `Hannah Patterson`, `David Lynch`, `Elijah Wood`, `Donald Richie`, `Spencer Moon`, `Martin Scorsese`],
+  writers: [`Donald Richie`, `Lawrence Hauben`, `Hannah Patterson`, `Ronald Harwood`, `Fran Walsh`, `Steven Soderbergh`],
+  actors: [`Adrien Brody`, `Jack Nicholson`, `Russell Crowe`, `David Lynch`, `Keanu Charles Reeves`, `Elijah Wood`, `Spencer Moon`, `Martin Scorsese`],
   country: [`USA`, `Italy`, `France`, `England`, `Spain`, `Poland`],
   avatar: [`angry.png`, `puke.png`, `sleeping.png`, `smile.png`, `trophy.png`],
   age: [`+3`, `12`, `16`, `18`],
+  comments: [`Interesting setting and a good cast`, `Booooooooooring`, `Very very old. Meh`, `Almost two hours? Seriously?`],
 };
 
 const getComments = (count) => {
   return new Array(count).fill(``).map(() => {
     return {
       avatar: getRandomItemFrom(dataFilms.avatar),
-      name: new Set(getRandomSeveral(dataFilms.writers)),
-      text: getRandomDescription(dataFilms.description),
+      name: getRandomItemFrom(dataFilms.writers),
+      text: getRandomItemFrom(dataFilms.comments),
       date: getRandomNumber(100),
     };
   });
@@ -38,7 +39,7 @@ export const getCard = () => ({
   title: getRandomItemFrom(dataFilms.titles),
   poster: getRandomItemFrom(dataFilms.posters),
   description: getRandomDescription(dataFilms.description),
-  rating: getRandomRating(10),
+  rating: getRandomRating(4, 10),
   year: getRandomNumberInRange(1900, 2019),
   duration: getRandomDuration(),
   genre: getRandomItemFrom(dataFilms.genres),
@@ -49,14 +50,14 @@ export const getCard = () => ({
   popup: {
     title: getRandomItemFrom(dataFilms.titles),
     original: getRandomItemFrom(dataFilms.titles),
-    director: new Set(getRandomSeveral(dataFilms.directors)),
-    writers: new Set(getRandomSeveral(dataFilms.writers)),
-    actors: new Set(getRandomSeveral(dataFilms.actors)),
-    rating: getRandomRating(10),
+    director: getRandomItemFrom(dataFilms.directors),
+    writers: new Set(getRandomSeveral(dataFilms.writers, 1, 3)),
+    actors: new Set(getRandomSeveral(dataFilms.actors, 3, 5)),
+    rating: getRandomRating(4, 10),
     release: getRandomRealise(),
     duration: getRandomDuration(),
     country: getRandomItemFrom(dataFilms.country),
-    genre: new Set(getRandomSeveral(dataFilms.genres)),
+    genre: new Set(getRandomSeveral(dataFilms.genres, 1, 2)),
     poster: getRandomItemFrom(dataFilms.posters),
     description: getRandomDescription(dataFilms.description),
     comments: getComments(5),

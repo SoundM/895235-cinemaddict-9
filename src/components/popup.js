@@ -46,18 +46,21 @@ export const createTemplatePopup = ({popup}) =>
           <table class="film-details__table">
             <tr class="film-details__row">
               <td class="film-details__term">Director</td>
-              ${Array.from(popup.director).map((director) => `
-              <td class="film-details__cell">${director}</td>`).join(``)}
+              <td class="film-details__cell">${popup.director}</td>
             </tr>
             <tr class="film-details__row">
               <td class="film-details__term">Writers</td>
+              <td class="film-details__cell">
               ${Array.from(popup.writers).map((writers) => `
-              <td class="film-details__cell">${writers}</td>`).join(``)}
+              ${writers}`).join(`, `)}
+              </td>
             </tr>
             <tr class="film-details__row">
               <td class="film-details__term">Actors</td>
+              <td class="film-details__cell">
               ${Array.from(popup.actors).map((actors) => `
-              <td class="film-details__cell">${actors}</td>`).join(``)}
+              ${actors}`).join(`, `)}
+              </td>
             </tr>
             <tr class="film-details__row">
               <td class="film-details__term">Release Date</td>
