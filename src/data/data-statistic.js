@@ -1,8 +1,4 @@
-import {
-  getRandomItemFrom,
-  getRandomNumber,
-  getRandomNumberInRange,
-} from './utils';
+import {getRandomItemFrom, getRandomNumber, getRandomNumberInRange} from './utils';
 
 const genres = [`Horror`, `Comedy`, `Western`, `Romance`, `Cartoon`, `Action`, `Documentary`, `Sci-Fighter`];
 const watched = getRandomNumber(50);
