@@ -155,6 +155,14 @@ const renderCards = (container, taskMock, position) => {
     .querySelector(`.film-details__close-btn`)
     .addEventListener(`click`, closePopup);
 
+  popup.getElement().querySelector(`.film-details__comment-input`).addEventListener(`focus`, () => {
+    document.removeEventListener(`keydown`, onEscKeyDown);
+  });
+
+  popup.getElement().querySelector(`.film-details__comment-input`).addEventListener(`blur`, () => {
+    document.addEventListener(`keydown`, onEscKeyDown);
+  });
+
   render(container, card.getElement(), position);
 };
 
@@ -177,4 +185,4 @@ buttonLoadMore.addEventListener(`click`, () => {
   return cards.slice(0, cardBalance).forEach((film) => renderCards(buttonLoadMore, film));
 });
 
-// document.querySelector(`.statistic`).classList.add(`visually-hidden`);
+document.querySelector(`.statistic`).classList.add(`visually-hidden`);
