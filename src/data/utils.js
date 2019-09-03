@@ -12,6 +12,7 @@ const getRandomSeveral = (title, min, max) => {
   }
   return title.slice(0, getRandomNumberInRange(min, max));
 };
+
 const getRandomRating = (min, max) => {
   return parseFloat((min + Math.random() * (max - min)).toFixed(1));
 };

@@ -1,5 +1,30 @@
-export const createTemplateStatistic = ({watched, hours, minute, topGenre}) =>
-  `<section class="statistic">
+import {createElement, unRender} from './utils';
+
+export class Statistic {
+  constructor({watched, hours, minute, topGenre}) {
+    this._watched = watched;
+    this._hours = hours;
+    this._minute = minute;
+    this._topGenre = topGenre;
+    this._element = null;
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement(element) {
+    this._element = null;
+    unRender(element);
+  }
+
+
+  getTemplate() {
+    return `<section class="statistic">
     <p class="statistic__rank">
       Your rank 
       <img class="statistic__img" src="images/bitmap@2x.png" alt="Avatar" width="35" height="35"> 
@@ -28,15 +53,15 @@ export const createTemplateStatistic = ({watched, hours, minute, topGenre}) =>
     <ul class="statistic__text-list">
       <li class="statistic__text-item">
         <h4 class="statistic__item-title">You watched</h4>
-        <p class="statistic__item-text">${watched} <span class="statistic__item-description">movies</span></p>
+        <p class="statistic__item-text">${this._watched} <span class="statistic__item-description">movies</span></p>
       </li>
       <li class="statistic__text-item">
         <h4 class="statistic__item-title">Total duration</h4>
-        <p class="statistic__item-text">${hours} <span class="statistic__item-description">h</span> ${minute}  <span class="statistic__item-description">m</span></p>
+        <p class="statistic__item-text">${this._hours} <span class="statistic__item-description">h</span> ${this._minute}  <span class="statistic__item-description">m</span></p>
       </li>
       <li class="statistic__text-item">
         <h4 class="statistic__item-title">Top genre</h4>
-        <p class="statistic__item-text">${topGenre}</p>
+        <p class="statistic__item-text">${this._topGenre}</p>
       </li>
     </ul>
   
@@ -45,3 +70,5 @@ export const createTemplateStatistic = ({watched, hours, minute, topGenre}) =>
     </div>
   
   </section>`;
+  }
+}

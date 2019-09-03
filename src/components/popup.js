@@ -1,3 +1,5 @@
+import {createElement, unRender} from './utils';
+
 const getComment = (comments) => {
   return comments.map((it) => {
     return `
@@ -17,8 +19,41 @@ const getComment = (comments) => {
   });
 };
 
-export const createTemplatePopup = ({popup}) =>
-  `<section class="film-details">
+export class Popup {
+  constructor({title, poster, description, rating, duration, release, commentsPopup, genres, original, director, writers, actors, country, age}) {
+    this._title = title;
+    this._poster = poster;
+    this._description = description;
+    this._rating = rating;
+    this._duration = duration;
+    this._commentsPopup = commentsPopup;
+    this._element = null;
+    this._release = release;
+    this._genres = genres;
+    this._original = original;
+    this._director = director;
+    this._writers = writers;
+    this._actors = actors;
+    this._country = country;
+    this._age = age;
+    this._element = null;
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement(element) {
+    this._element = null;
+    unRender(element);
+  }
+
+  getTemplate() {
+    return `<section class="film-details">
   <form class="film-details__inner" action="" method="get">
     <div class="form-details__top-container">
       <div class="film-details__close">
@@ -26,65 +61,64 @@ export const createTemplatePopup = ({popup}) =>
       </div>
       <div class="film-details__info-wrap">
         <div class="film-details__poster">
-          <img class="film-details__poster-img" src="./images/posters/the-great-flamarion.jpg" alt="">
+          <img class="film-details__poster-img" src="./images/posters/${this._poster}" alt="">
 
-          <p class="film-details__age">${popup.age}</p>
+          <p class="film-details__age">${this._age}</p>
         </div>
 
         <div class="film-details__info">
           <div class="film-details__info-head">
             <div class="film-details__title-wrap">
-              <h3 class="film-details__title">${popup.title}</h3>
-              <p class="film-details__title-original">${popup.original}</p>
+              <h3 class="film-details__title">${this._title}</h3>
+              <p class="film-details__title-original">${this._original}</p>
             </div>
 
             <div class="film-details__rating">
-              <p class="film-details__total-rating">${popup.rating}</p>
+              <p class="film-details__total-rating">${this._rating}</p>
             </div>
           </div>
 
           <table class="film-details__table">
             <tr class="film-details__row">
               <td class="film-details__term">Director</td>
-              <td class="film-details__cell">${popup.director}</td>
+              <td class="film-details__cell">${this._director}</td>
             </tr>
             <tr class="film-details__row">
               <td class="film-details__term">Writers</td>
               <td class="film-details__cell">
-              ${Array.from(popup.writers).map((writers) => `
-              ${writers}`).join(`, `)}
+              ${Array.from(this._writers).map((writers) => `${writers}`).join(`, `)}
               </td>
-            </tr>
-            <tr class="film-details__row">
-              <td class="film-details__term">Actors</td>
-              <td class="film-details__cell">
-              ${Array.from(popup.actors).map((actors) => `
+              </tr>
+              <tr class="film-details__row">
+                <td class="film-details__term">Actors</td>
+                <td class="film-details__cell">
+              ${Array.from(this._actors).map((actors) => `
               ${actors}`).join(`, `)}
               </td>
             </tr>
             <tr class="film-details__row">
               <td class="film-details__term">Release Date</td>
-              <td class="film-details__cell">${popup.age}</td>
+              <td class="film-details__cell">${this._release}</td>
             </tr>
             <tr class="film-details__row">
               <td class="film-details__term">Runtime</td>
-              <td class="film-details__cell">${popup.duration}</td>
+              <td class="film-details__cell">${this._duration}</td>
             </tr>
             <tr class="film-details__row">
               <td class="film-details__term">Country</td>
-              <td class="film-details__cell">${popup.country}</td>
+              <td class="film-details__cell">${this._country}</td>
             </tr>
             <tr class="film-details__row">
               <td class="film-details__term">Genres</td>
               <td class="film-details__cell">
-                 ${Array.from(popup.genre).map((genre) => `
+                 ${Array.from(this._genres).map((genre) => `
                 <span class="film-details__genre">${genre}</span>`).join(``)}
               </td>
             </tr>
           </table>
 
           <p class="film-details__film-description">
-            ${popup.description}
+            ${this._description}
           </p>
         </div>
       </div>
@@ -103,10 +137,10 @@ export const createTemplatePopup = ({popup}) =>
 
     <div class="form-details__bottom-container">
       <section class="film-details__comments-wrap">
-        <h3 class="film-details__comments-title">Comments <span class="film-details__comments-count">${popup.comments.length}</span></h3>
+        <h3 class="film-details__comments-title">Comments <span class="film-details__comments-count">${this._commentsPopup.length}</span></h3>
 
         <ul class="film-details__comments-list">
-          ${getComment(popup.comments)}
+          ${getComment(this._commentsPopup)}
         </ul>
 
         <div class="film-details__new-comment">
@@ -142,3 +176,5 @@ export const createTemplatePopup = ({popup}) =>
     </div>
   </form>
 </section>`;
+  }
+}
