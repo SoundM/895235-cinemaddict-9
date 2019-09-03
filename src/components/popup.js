@@ -20,7 +20,7 @@ const getComment = (comments) => {
 };
 
 export class Popup {
-  constructor({title, poster, description, rating, duration, commentsPopup, genres, original, director, writers, actors, country, age}) {
+  constructor({title, poster, description, rating, duration, release, commentsPopup, genres, original, director, writers, actors, country, age}) {
     this._title = title;
     this._poster = poster;
     this._description = description;
@@ -28,6 +28,7 @@ export class Popup {
     this._duration = duration;
     this._commentsPopup = commentsPopup;
     this._element = null;
+    this._release = release;
     this._genres = genres;
     this._original = original;
     this._director = director;
@@ -97,7 +98,7 @@ export class Popup {
             </tr>
             <tr class="film-details__row">
               <td class="film-details__term">Release Date</td>
-              <td class="film-details__cell">${this._age}</td>
+              <td class="film-details__cell">${this._release}</td>
             </tr>
             <tr class="film-details__row">
               <td class="film-details__term">Runtime</td>
