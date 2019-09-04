@@ -1,4 +1,5 @@
 import {Search} from "./components/search.js";
+import {SearchNoResult} from "./components/search-no-result.js";
 import {UserProfile} from "./components/user-profile.js";
 import {Navigation} from "./components/navigation";
 import {Sort} from "./components/sort";
@@ -21,7 +22,7 @@ export const CardsCount = {
   CARDS_ACTIVE: 5,
   CARD_COUNT_EXTRA: 2,
   ADD_BY_CLICK: 5,
-  All: 17,
+  All: 23,
 };
 let cardBalance = CardsCount.All - CardsCount.CARDS_ACTIVE;
 const header = `.header`;
@@ -168,7 +169,14 @@ const renderCards = (container, taskMock, position) => {
 
 
 const showFilms = (films) => {
+  if (cards.length === 0) {
+    Array.from(document.querySelector(`.main`).children).forEach((it) => {
+      unRender(it);
+    });
+    render(document.querySelector(`.main`), new SearchNoResult().getElement(), Position.AFTER_BEGIN);
+  }
   films.slice(0, CardsCount.CARDS_ACTIVE).forEach((film) => renderCards(buttonLoadMore, film, Position.BEFORE_BEGIN));
+  document.querySelector(`.statistic`).classList.add(`visually-hidden`);
 };
 
 showFilms(cards);
@@ -185,4 +193,4 @@ buttonLoadMore.addEventListener(`click`, () => {
   return cards.slice(0, cardBalance).forEach((film) => renderCards(buttonLoadMore, film));
 });
 
-document.querySelector(`.statistic`).classList.add(`visually-hidden`);
+
