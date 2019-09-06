@@ -1,6 +1,6 @@
 import {createElement, unRender} from './utils';
 
-export class FilmsList {
+export class SearchNoResult {
   getElement() {
     if (!this._element) {
       this._element = createElement(this.getTemplate().trim());
@@ -16,10 +16,21 @@ export class FilmsList {
 
 
   getTemplate() {
-    return `<section class="films-list">
+    return `<main class="main">
+  <div class="result">
+    <p class="result__text">Result <span class="result__count">0</span></p>
+  </div>
+
+  <section class="films">
+    <section class="films-list">
       <h2 class="films-list__title visually-hidden">All movies. Upcoming</h2>
 
-      <div class="films-list__container"></div>
-      </section>`;
+      <div class="no-result">
+        There is no movies for your request.
+      </div>
+    </section>
+  </section>
+</main>
+`;
   }
 }
