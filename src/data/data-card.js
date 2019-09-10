@@ -10,6 +10,13 @@ import {
   getRandomNumberInRange,
 } from './utils';
 
+export const CardsCount = {
+  CARDS_ACTIVE: 5,
+  CARD_COUNT_EXTRA: 2,
+  ADD_BY_CLICK: 5,
+  All: 23,
+};
+
 const dataFilms = {
   titles: [`Forrest Gump`, `Inception`, `The Lion King`, `Ice Age`, `Knockin' on Heaven's Door`, `A Beautiful Mind`, `Catch Me If You Can`, `The Matrix`, `The Pianist`, `The Lord of the Rings: The Fellowship of the Ring`, `WALL·E`, `One Flew Over the Cuckoo's Nest`, `The Pursuit of Happyness`, `The Butterfly Effect`, `Gone with the Wind`, `Ocean's Eleven`],
   posters: [`made-for-each-other.png`, `popeye-meets-sinbad.png`, `sagebrush-trail.jpg`, `santa-claus-conquers-the-martians.jpg`, `the-dance-of-life.jpg`, `the-great-flamarion.jpg`, `the-man-with-the-golden-arm.jpg`],
@@ -54,6 +61,8 @@ export const getCard = () => ({
   release: getRandomRealise(),
   country: getRandomItemFrom(dataFilms.country),
   genres: new Set(getRandomSeveral(dataFilms.genres, 1, 2)),
-  commentsPopup: getComments(5),
+  commentsPopup: getComments(getRandomNumber(10)),
   age: getRandomItemFrom(dataFilms.age),
 });
+
+export const cards = new Array(CardsCount.All).fill(``).map(() => getCard());

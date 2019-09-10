@@ -1,27 +1,12 @@
-import {createElement, unRender} from './utils';
+import {AbstractComponent} from './abstract-component';
 
-export class Navigation {
+export class Navigation extends AbstractComponent {
   constructor({watchlist, watched, favorites}) {
-    this._element = null;
+    super();
     this._watchlist = watchlist;
     this._watched = watched;
     this._favorites = favorites;
   }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate().trim());
-    }
-
-    return this._element;
-  }
-
-  removeElement(element) {
-    this._element = null;
-    unRender(element);
-  }
-
-
   getTemplate() {
     return `<nav class="main-navigation">
     <a href="#all" class="main-navigation__item main-navigation__item--active">All movies</a>

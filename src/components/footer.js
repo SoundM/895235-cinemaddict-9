@@ -1,24 +1,10 @@
-import {createElement, unRender} from './utils';
+import {AbstractComponent} from './abstract-component';
 
-export class Footer {
+export class Footer extends AbstractComponent {
   constructor({all}) {
-    this._element = null;
+    super();
     this._all = all;
   }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate().trim());
-    }
-
-    return this._element;
-  }
-
-  removeElement(element) {
-    this._element = null;
-    unRender(element);
-  }
-
 
   getTemplate() {
     return `<footer class="footer">

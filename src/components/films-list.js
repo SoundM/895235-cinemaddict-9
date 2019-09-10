@@ -1,24 +1,13 @@
-import {createElement, unRender} from './utils';
+import {AbstractComponent} from './abstract-component';
 
-export class FilmsList {
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate().trim());
-    }
-
-    return this._element;
+export class FilmsList extends AbstractComponent {
+  constructor() {
+    super();
   }
-
-  removeElement(element) {
-    this._element = null;
-    unRender(element);
-  }
-
 
   getTemplate() {
     return `<section class="films-list">
       <h2 class="films-list__title visually-hidden">All movies. Upcoming</h2>
-
       <div class="films-list__container"></div>
       </section>`;
   }
