@@ -1,27 +1,13 @@
-import {createElement, unRender} from './utils';
+import {AbstractComponent} from './abstract-component';
 
-export class Statistic {
+export class Statistic extends AbstractComponent {
   constructor({watched, hours, minute, topGenre}) {
+    super();
     this._watched = watched;
     this._hours = hours;
     this._minute = minute;
     this._topGenre = topGenre;
-    this._element = null;
   }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate().trim());
-    }
-
-    return this._element;
-  }
-
-  removeElement(element) {
-    this._element = null;
-    unRender(element);
-  }
-
 
   getTemplate() {
     return `<section class="statistic">

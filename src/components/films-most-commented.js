@@ -1,19 +1,9 @@
-import {createElement, unRender} from './utils';
+import {AbstractComponent} from './abstract-component';
 
-export class FilmsMostCommented {
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate().trim());
-    }
-
-    return this._element;
+export class FilmsMostCommented extends AbstractComponent {
+  constructor() {
+    super();
   }
-
-  removeElement(element) {
-    this._element = null;
-    unRender(element);
-  }
-
 
   getTemplate() {
     return `<h2 class="films-list__title">Most commented</h2>`;

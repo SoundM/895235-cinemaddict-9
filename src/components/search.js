@@ -1,19 +1,9 @@
-import {createElement, unRender} from './utils';
+import {AbstractComponent} from './abstract-component';
 
-export class Search {
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate().trim());
-    }
-
-    return this._element;
+export class Search extends AbstractComponent {
+  constructor() {
+    super();
   }
-
-  removeElement(element) {
-    this._element = null;
-    unRender(element);
-  }
-
 
   getTemplate() {
     return `<form class="header__search search">

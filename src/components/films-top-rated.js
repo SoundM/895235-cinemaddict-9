@@ -1,19 +1,9 @@
-import {createElement, unRender} from './utils';
+import {AbstractComponent} from './abstract-component';
 
-export class FilmsTopRated {
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate().trim());
-    }
-
-    return this._element;
+export class FilmsTopRated extends AbstractComponent {
+  constructor() {
+    super();
   }
-
-  removeElement(element) {
-    this._element = null;
-    unRender(element);
-  }
-
 
   getTemplate() {
     return `<h2 class="films-list__title">Top rated</h2>`;

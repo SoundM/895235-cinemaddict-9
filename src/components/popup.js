@@ -1,4 +1,4 @@
-import {createElement, unRender} from './utils';
+import {AbstractComponent} from './abstract-component';
 
 const getComment = (comments) => {
   return comments.map((it) => {
@@ -19,15 +19,15 @@ const getComment = (comments) => {
   });
 };
 
-export class Popup {
+export class Popup extends AbstractComponent {
   constructor({title, poster, description, rating, duration, release, commentsPopup, genres, original, director, writers, actors, country, age}) {
+    super();
     this._title = title;
     this._poster = poster;
     this._description = description;
     this._rating = rating;
     this._duration = duration;
     this._commentsPopup = commentsPopup;
-    this._element = null;
     this._release = release;
     this._genres = genres;
     this._original = original;
@@ -36,20 +36,6 @@ export class Popup {
     this._actors = actors;
     this._country = country;
     this._age = age;
-    this._element = null;
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate().trim());
-    }
-
-    return this._element;
-  }
-
-  removeElement(element) {
-    this._element = null;
-    unRender(element);
   }
 
   getTemplate() {
