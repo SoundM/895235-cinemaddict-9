@@ -48,8 +48,10 @@ export class PageControllerFilms {
     document.querySelector(`.statistic`).classList.add(`visually-hidden`);
     document.querySelector(`.statistic`).remove();
 
-    this._cards.slice(0, CardsCount.CARD_COUNT_EXTRA).forEach((film) => this._renderCards(filmsTopRatedElement, film, Position.BEFORE_END));
-    this._cards.slice(0, CardsCount.CARD_COUNT_EXTRA).forEach((film) => this._renderCards(filmsMostCommentedElement, film, Position.BEFORE_END));
+    const sortedByRating = this._cards.slice(0, CardsCount.All).sort((a, b) => b.rating - a.rating);
+    sortedByRating.slice(0, CardsCount.CARD_COUNT_EXTRA).forEach((film) => this._renderCards(filmsTopRatedElement, film, Position.BEFORE_END));
+    const sortedByComments = this._cards.slice(0, CardsCount.All).sort((a, b) => b.comments - a.comments);
+    sortedByComments.slice(0, CardsCount.CARD_COUNT_EXTRA).forEach((film) => this._renderCards(filmsMostCommentedElement, film, Position.BEFORE_END));
 
 
     buttonLoadMoreElement.addEventListener(`click`, () => {
@@ -117,19 +119,20 @@ export class PageControllerFilms {
 
     evt.target.classList.add(`sort__button--active`);
 
-    this._filmsList.getElement().innerHTML = ``;
+    const filmsMainContainerElement = this._container.querySelector(`.films-list .films-list__container`);
+    filmsMainContainerElement.innerHTML = ``;
 
     switch (evt.target.dataset.sortType) {
       case `by-date`:
         const sortedByDateUp = this._cards.slice(0, cardCount).sort((a, b) => a.year - b.year);
-        sortedByDateUp.forEach((taskMock) => this._renderCards(taskMock));
+        sortedByDateUp.forEach((taskMock) => this._renderCards(filmsMainContainerElement, taskMock, Position.BEFORE_END));
         break;
       case `by-rating`:
-        const sortedByRating = this._cards.slice(0, cardCount).sort((a, b) => a.rating - b.rating);
-        sortedByRating.forEach((taskMock) => this._renderCards(taskMock));
+        const sortedByRating = this._cards.slice(0, cardCount).sort((a, b) => b.rating - a.rating);
+        sortedByRating.forEach((taskMock) => this._renderCards(filmsMainContainerElement, taskMock, Position.BEFORE_END));
         break;
       case `default`:
-        this._cards.slice(0, cardCount).forEach(this._renderCards());
+        this._cards.slice(0, cardCount).forEach((taskMock) => this._renderCards(filmsMainContainerElement, taskMock, Position.BEFORE_END));
         break;
     }
   }
